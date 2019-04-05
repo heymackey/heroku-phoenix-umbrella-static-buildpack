@@ -85,17 +85,34 @@ function cache_npm_dependencies {
   print_heading "Caching dependencies for $app_name"
 
   mkdir -p "$module_cache"
-  cp -r "$module_root" "$module_cache"
+
+  cp -r "$module_root"/* "$module_cache"
 
   print_indented "Done."
 }
 
 function install_npm_dependencies {
   local package_root
+  local cache_root
   local app_name
 
   package_root="$1"
+  cache_root="$2"
   app_name=$(get_app_name "$package_root")
+  module_cache="${cache_root}/${app_name}/node_modules"
+  module_root="${package_root}/node_modules"
+
+  if [[ -d "$module_cache" ]]; then
+    print_indented "Loading cached modules..."
+
+    mkdir -p "$module_root"
+
+    cp -r "$module_cache"/* "$module_root"
+    print_indented "Cached modules loaded."
+
+  else
+    print_indented "No module cache found, installing from scratch."
+  fi
 
   print_heading "Installing package dependencies for $app_name"
 

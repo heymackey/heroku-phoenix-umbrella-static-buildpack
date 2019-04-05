@@ -1,6 +1,4 @@
-node_modules
-build_dir/.heroku/node
-build_dir/test_app/node_modules
-build_dir/test_app_two/node_modules
+node_modules/
+node/
 cache_dir/*
 env_dir/*
