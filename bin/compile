@@ -4,7 +4,7 @@ set -o errexit
 set -o pipefail
 unset GIT_DIR
 
-if [[ ! "$MIX_ENV" == "prod" ]]; then
+if [[ "$MIX_ENV" == "test" ]]; then
   function mix {
     print_indented "mix $*"
   }
@@ -26,7 +26,6 @@ mkdir -p "${build_path}/.heroku"
 load_config "$buildpack_root" "$build_path"
 
 node_src_path="${cache_path}/node-v${node_version}-linux-x64.tar.gz"
-
 validate_assets_paths "$assets_paths"
 IFS=', ' read -r -a app_assets <<< "$assets_paths"
 
@@ -35,11 +34,11 @@ export_mix_env
 
 download_node "$node_src_path" "$node_version"
 install_node "$node_src_path" "${heroku_path}/node"
-install_npm "$build_dir" "$npm_version"
+install_npm "$build_path" "$npm_version"
 
 for assets_path in "${app_assets[@]}"; do
   package_root="${build_path}/${assets_path}"
-  app_path="$(dirname $package_root)"
+  app_path="$(dirname "$package_root")"
   custom_script="$package_root/compile_static_assets.sh"
 
   install_npm_dependencies "$package_root"
@@ -47,7 +46,7 @@ for assets_path in "${app_assets[@]}"; do
 
   if [[ -f "$custom_script" ]]; then
     print_heading "Custom compile_static_assets.sh deploy..."
-    echo "run custom script"
+    sh "$custom_script"
   else
     print_heading "Default Phoenix deploy..."
     default_phoenix_deploy "$package_root" "$app_path"
@@ -57,6 +56,7 @@ done
 cd "$buildpack_root"
 
 print_success "Assets successfully built!"
-rm -rf "${heroku_path}/node"
-rm -rf "${cache_path}"/*
-rm -rf "${env_path}"/*
+
+if [[ "$MIX_ENV" == "test" ]]; then
+  clean "$build_path" "$cache_path" "$env_path" "$heroku_path" "$assets_paths"
+fi

@@ -33,17 +33,38 @@ function print_configuration {
 }
 
 function clean {
+  local build_path
+  local cache_path
+  local env_path
+  local heroku_path
   local assets_paths_string
-  assets_path_string="$1"
+
+  build_path="$1"
+  cache_path="$2"
+  env_path="$3"
+  heroku_path="$4"
+  assets_paths_string="$5"
+
+  print_indented "Cleaning heroku build directory..."
+  rm -rf "${heroku_path}/node"
+
+  print_indented "Cleaning cache directory..."
+  rm -rf "${cache_path}"/*
+
+  print_indented "Cleaning env directory..."
+  rm -rf "${env_path}"/*
+
   IFS=', ' read -r -a assets_paths <<< "$assets_paths_string"
+
   for assets_path in "${assets_paths[@]}"; do
-    if [[ -d "${assets_path}/node_modules" ]]; then
-      print_indented "Clean ${assets_path}/node_modules"
-      # rm -rf "${assets_path}/node_modules"
-    else
-      print_indented "Don't clean ${assets_path}/node_modules"
+    app_modules="${build_path}/${assets_path}/node_modules"
+    if [[ -d "$app_modules" ]]; then
+      print_indented "Cleaning ${app_modules}..."
+      rm -rf "$app_modules"
     fi
   done
+
+  print_success "Clean as a whistle!"
 }
 
 function get_app_name {
