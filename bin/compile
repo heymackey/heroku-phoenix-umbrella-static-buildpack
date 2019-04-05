@@ -48,6 +48,8 @@ for assets_path in "${app_assets[@]}"; do
   install_npm_dependencies "$package_root"
   cache_npm_dependencies "$package_root" "$cache_path"
 
+  mkdir -p "$app_path/priv/static"
+
   if [[ -f "$custom_script" ]]; then
     print_heading "Custom compile_static_assets.sh deploy..."
     source "$custom_script"
