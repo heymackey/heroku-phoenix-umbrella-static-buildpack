@@ -56,10 +56,10 @@ function install_npm {
   npm_version="$2"
   build_dir="$1"
 
-  print_heading "Installing npm..."
+  print_heading "Installing npm@${npm_version}..."
 
   if [[ ! "$npm_version" ]] || [[ "$(npm --version)" == "$npm_version" ]]; then
-    print_indented "Using default npm version"
+    print_indented "Using default npm version $npm_version"
   else
     print_indented "Downloading and installing npm $npm_version (replacing version $(npm --version))..."
     cd "$build_dir" || exit 1
