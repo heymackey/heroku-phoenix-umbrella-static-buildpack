@@ -1,0 +1,15 @@
+{
+  "name": "phoenix-static-assets-buildpack",
+  "version": "1.0.0",
+  "description": "A test application for phoenix static assets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "echo \"Deploying test_app_two\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "npm-package-example": "^1.1.2"
+  }
+}

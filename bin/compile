@@ -58,3 +58,5 @@ cd "$buildpack_root"
 
 print_success "Assets successfully built!"
 rm -rf "${heroku_path}/node"
+rm -rf "${cache_path}"/*
+rm -rf "${env_path}"/*

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-download_node() {
+function download_node {
   local platform=linux-x64
   local node_src_path
   local node_version
@@ -21,14 +21,14 @@ download_node() {
     response_code=$(curl "$url" -L --silent --fail --retry 5 --retry-max-time 15 -o ${node_src_path} --write-out "%{http_code}")
 
     if [ "$response_code" != "200" ]; then
-      echo "Unable to download node@${node_version}: status $response_code" && false
+      print_error "Unable to download node@${node_version}: status $response_code" && false
     fi
   else
     print_indented "Using cached node@${node_version}..."
   fi
 }
 
-install_node() {
+function install_node {
   local node_src_path
   local node_build_path
 
@@ -118,8 +118,8 @@ function load_config {
   local default_config_file
   local config_file
 
-  custom_config_file="${build_path}/phoenix_static_assets_buildpack.config"
-  default_config_file="${root_path}/phoenix_static_assets_buildpack.config"
+  custom_config_file="${build_path}/heroku_phoenix_umbrella_static_buildpack.config"
+  default_config_file="${root_path}/heroku_phoenix_umbrella_static_buildpack.config"
 
   if [[ -f "$custom_config_file" ]]; then
     config_file="$custom_config_file"
@@ -134,7 +134,7 @@ function load_config {
   fi
 
   if [[ ! -f "$custom_config_file" ]] && [[ ! -f "$default_config_file" ]]; then
-    echo print_error"No configuration found!"
+    print_error "No configuration found!"
     exit 1
   fi
 
@@ -164,7 +164,7 @@ function export_config_vars {
   fi
 }
 
-export_mix_env() {
+function export_mix_env {
   print_heading "Exporting MIX_ENV..."
 
   if [ -z "${MIX_ENV}" ]; then
