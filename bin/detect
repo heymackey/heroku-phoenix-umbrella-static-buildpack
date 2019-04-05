@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+mix_file_path=$(realpath "$1/mix.exs")
+
+if [[ -f "$mix_file_path" ]]; then
+  echo "Heroku Phoenix Umbrella Static Buildpack"
+  exit 0
+else
+  exit 1
+fi
