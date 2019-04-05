@@ -29,8 +29,12 @@ node_src_path="${cache_path}/node-v${node_version}-linux-x64.tar.gz"
 validate_assets_paths "$assets_paths"
 IFS=', ' read -r -a app_assets <<< "$assets_paths"
 
+env
+
 export_config_vars
 export_mix_env
+
+env
 
 download_node "$node_src_path" "$node_version"
 install_node "$node_src_path" "${heroku_path}/node"
