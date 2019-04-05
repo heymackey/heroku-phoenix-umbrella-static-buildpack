@@ -168,9 +168,9 @@ function export_mix_env {
   print_heading "Exporting MIX_ENV..."
 
   if [ -z "${MIX_ENV}" ]; then
-    if [ -d "$env_dir" ] && [ -f "$env_dir/${MIX_ENV}" ]; then
+    if [ -d "$env_dir" ] && [ -f "$env_dir/MIX_ENV" ]; then
       export MIX_ENV
-      MIX_ENV=$(cat "${env_dir}/${MIX_ENV}")
+      MIX_ENV=$(cat "${env_dir}/MIX_ENV")
     else
       export MIX_ENV=prod
     fi

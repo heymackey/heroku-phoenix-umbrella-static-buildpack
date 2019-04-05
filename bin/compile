@@ -46,7 +46,7 @@ for assets_path in "${app_assets[@]}"; do
 
   if [[ -f "$custom_script" ]]; then
     print_heading "Custom compile_static_assets.sh deploy..."
-    sh "$custom_script"
+    source "$custom_script"
   else
     print_heading "Default Phoenix deploy..."
     default_phoenix_deploy "$package_root" "$app_path"
