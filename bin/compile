@@ -10,12 +10,12 @@ if [[ "$MIX_ENV" == "test" ]]; then
   }
 fi
 
-buildpack_root=$(realpath "$(dirname "$(dirname "$BASH_SOURCE[0]")")")
+buildpack_root=$(readlink -f "$(dirname "$(dirname "$BASH_SOURCE[0]")")")
 lib_path="${buildpack_root}/lib"
 
-build_path=$(realpath "$1")
-cache_path=$(realpath "$2")
-env_path=$(realpath "$3")
+build_path=$(readlink -f "$1")
+cache_path=$(readlink -f "$2")
+env_path=$(readlink -f "$3")
 heroku_path="${build_path}/.heroku"
 
 source "$lib_path/utils.sh"

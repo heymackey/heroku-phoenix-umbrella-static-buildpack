@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-mix_file_path=$(realpath "$1/mix.exs")
+mix_file_path=$(readlink -f "$1/mix.exs")
 
 if [[ -f "$mix_file_path" ]]; then
   echo "Heroku Phoenix Umbrella Static Buildpack"
