@@ -41,7 +41,7 @@ node_version=10.15.1
 # Set the NPM version to be installed.
 npm_version=6.4.1
 
-# Comma delimitted list of asset folder paths, by default the configuration assumes there is an 
+# Comma delimitted list of asset folder paths, by default the configuration assumes there is an
 # `assets` folder at the root, which will be deployed. This will work out-of-the-box for a vanilla
 # Phoenix application.
 assets_paths=assets
@@ -66,7 +66,7 @@ mix phx.digest.clean
 
 ```
 
-This will deploy the static assets for each configured application in the buildpack according to the default Phoenix static asset deploy steps. If you wish to customize the deploy process for a given application, you need to define a `compile_static_assets.sh` file within the `assets` directory of the application you wish to customize. When a custom compile script is present, this buildpack will completely defer to that script. You can mix and match default and custom deploys for all the application assets configured for deploy (i.e one app can leverage the defaults, while another may have a custom deploy script).
+This will deploy the static assets for each configured application in the buildpack according to the default Phoenix static asset deploy steps. If you wish to customize the deploy process for a given application, you need to define a `compile_static_assets.sh` file within the `assets` directory of the application you wish to customize. When a custom compile script is present, this buildpack will completely defer to that script. You can mix and match default and custom deploys for all the applications configured for deploy (i.e one app can leverage the defaults, while another may have a custom deploy script).
 
 ### Custom script environment variables
 
@@ -75,7 +75,7 @@ There are a few handy variables that will be available in your custom compile sc
 ```sh
 $buildpack_root # This provides the full path to the root of the buildpack
 $build_path # The full path to the build directory
-$cache_path # The full path to the buildpack cache directory
+$cache_path # The full path to the cache directory
 $env_path # The full path to the environment directory
 ```
 
