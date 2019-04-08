@@ -113,7 +113,7 @@ Output:
 
 #### read_indented
 
-The `read_indented` function is similar to the ``print_indented` except it's meant to be used when reading output from another file or process.
+The `read_indented` function is similar to the `print_indented` except it's meant to be used when reading output from another file or process.
 
 ```sh
 npm install | read_indented
