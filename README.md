@@ -76,6 +76,8 @@ $buildpack_root # This provides the full path to the root of the buildpack
 $build_path # The full path to the build directory
 $cache_path # The full path to the cache directory
 $env_path # The full path to the environment directory
+$package_root # The npm package root of the current application (i.e apps/some_app/assets)
+$app_path # The root of the current application (i.e apps/some_app)
 ```
 
 ### Custom script available functions
