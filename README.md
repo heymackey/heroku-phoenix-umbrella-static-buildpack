@@ -28,7 +28,7 @@ Usage
 
 Configuration
 -------------
-Create a `heroku_phoenix_umbrella_static_buildpack.config` file in the root of your project. This file will be treated as a bash script. If you don't specify a config file then the default configuration will be used.
+Create a `heroku_phoenix_umbrella_static_buildpack.config` file in the root of your project. This file will be treated as a bash script. If you don't specify a config file, the default configuration will be used.
 
 Here's a full configuration with all the options:
 
@@ -41,9 +41,8 @@ node_version=10.15.1
 # Set the NPM version to be installed.
 npm_version=6.4.1
 
-# Comma delimitted list of asset folder paths, by default the configuration assumes there is an
-# `assets` folder at the root, which will be deployed. This will work out-of-the-box for a vanilla
-# Phoenix application.
+# Comma delimitted list of application assets paths. By default the configuration uses `assets` which works for
+# a vanilla Phoenix application where the root of the project is the application root as well.
 assets_paths=assets
 
 # Set whether or not to clean out the cache after the deploy.
