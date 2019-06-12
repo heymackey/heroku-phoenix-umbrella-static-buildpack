@@ -119,7 +119,7 @@ function install_npm_dependencies {
   cd "$package_root"
 
   npm prune | read_indented
-  npm install --quiet --unsafe-perm 2>&1 | read_indented
+  npm install --production --quiet --unsafe-perm 2>&1 | read_indented
   npm rebuild 2>&1 | read_indented
   npm --unsafe-perm prune 2>&1 | read_indented
 
