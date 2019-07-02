@@ -162,22 +162,24 @@ function load_config {
 
 function export_config_vars {
   print_heading "Exporting config variables..."
-
   local env_dir
-  local whitelist_regex
-  local blacklist_regex
-
   env_dir="$1"
-  whitelist_regex=${2:-''}
-  blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
 
   if [ -d "$env_dir" ]; then
+    local whitelist_regex
+    local blacklist_regex
+    local whitelist_regex=${2:-''}
+    local blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH|LANG|BUILD_DIR)$'}
+
     print_indented "Exporting the following config vars:"
-    for e in ${env_dir}/*; do
-      echo "$e" | grep -E "$whitelist_regex" | grep -vE "$blacklist_regex" &&
-      export "$e=$(cat "${env_dir}/${e}")"
+    pushd "$env_dir" >/dev/null
+    for e in *; do
+      [ -e "$e" ] || continue
+      echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
+      export "$e=$(cat "$e")"
       :
     done
+    popd >/dev/null
   fi
 }
 

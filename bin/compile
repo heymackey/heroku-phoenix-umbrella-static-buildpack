@@ -16,6 +16,7 @@ lib_path="${buildpack_root}/lib"
 build_path=$(readlink -f "$1")
 cache_path=$(readlink -f "$2")
 env_path=$(readlink -f "$3")
+env_dir=${3:-}
 heroku_path="${build_path}/.heroku"
 
 source "$lib_path/utils.sh"
@@ -29,7 +30,7 @@ node_src_path="${cache_path}/node-v${node_version}-linux-x64.tar.gz"
 validate_assets_paths "$assets_paths"
 IFS=', ' read -r -a app_assets <<< "$assets_paths"
 
-export_config_vars "$env_path"
+export_config_vars "$env_dir"
 export_mix_env
 
 download_node "$node_src_path" "$node_version"
