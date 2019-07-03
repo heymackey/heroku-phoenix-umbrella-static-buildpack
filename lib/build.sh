@@ -172,14 +172,19 @@ function export_config_vars {
     local blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
 
     print_indented "Exporting the following config vars:"
-    pushd "$env_dir" >/dev/null
-    for e in *; do
-      [ -e "$e" ] || continue
-      echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
-      export "$e=$(cat "$e")"
+    for e in ${env_dir}/*; do
+      echo "$e" | grep -E "$whitelist_regex" | grep -vE "$blacklist_regex" &&
+      export "$e=$(cat "${env_dir}/${e}")"
       :
     done
-    popd >/dev/null
+    # pushd "$env_dir" >/dev/null
+    # for e in *; do
+    #   [ -e "$e" ] || continue
+    #   echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
+    #   export "$e=$(cat "$e")"
+    #   :
+    # done
+    # popd >/dev/null
   fi
 }
 
