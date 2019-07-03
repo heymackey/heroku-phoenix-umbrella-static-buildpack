@@ -169,7 +169,7 @@ function export_config_vars {
     local whitelist_regex
     local blacklist_regex
     local whitelist_regex=${2:-''}
-    local blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH|LANG|BUILD_DIR)$'}
+    local blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
 
     print_indented "Exporting the following config vars:"
     pushd "$env_dir" >/dev/null
